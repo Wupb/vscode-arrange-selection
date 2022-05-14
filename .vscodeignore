@@ -3,7 +3,6 @@
 node_modules/
 test/
 out/
-src/
 
 **/jsconfig.json
 **/.eslintrc.json

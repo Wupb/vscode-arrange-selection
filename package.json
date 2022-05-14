@@ -24,7 +24,7 @@
     "categories": [
         "Other"
     ],
-    "main": "./extension.js",
+    "main": "./src/extension.js",
     "activationEvents": [
         "onCommand:arrange-selection.reverseLines",
         "onCommand:arrange-selection.sortLines",
