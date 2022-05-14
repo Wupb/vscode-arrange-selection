@@ -1,0 +1,220 @@
+{
+    "name": "arrange-selection",
+    "displayName": "Arrange Selection",
+    "icon": "assets/icon/icon.png",
+    "description": "Sort, shuffle, reverse, or filter selected lines or characters",
+    "keywords": [
+        "Flip",
+        "Unique"
+    ],
+    "homepage": "https://github.com/Wupb/vscode-arrange-selection",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Wupb/vscode-arrange-selection.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Wupb/vscode-arrange-selection/issues"
+    },
+    "publisher": "Wupb",
+    "license": "MIT",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.66.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "main": "./extension.js",
+    "activationEvents": [
+        "onCommand:arrange-selection.reverseLines",
+        "onCommand:arrange-selection.sortLines",
+        "onCommand:arrange-selection.sortLinesDescending",
+        "onCommand:arrange-selection.sortLinesByLength",
+        "onCommand:arrange-selection.sortLinesByLengthDescending",
+        "onCommand:arrange-selection.shuffleLines",
+        "onCommand:arrange-selection.filterDuplicateLines",
+        "onCommand:arrange-selection.reverseCharacters",
+        "onCommand:arrange-selection.sortCharacters",
+        "onCommand:arrange-selection.sortCharactersDescending",
+        "onCommand:arrange-selection.shuffleCharacters",
+        "onCommand:arrange-selection.filterDuplicateCharacters"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "arrange-selection.reverseLines",
+                "title": "Arrange Selection: Reverse lines"
+            },
+            {
+                "command": "arrange-selection.sortLines",
+                "title": "Arrange Selection: Sort lines"
+            },
+            {
+                "command": "arrange-selection.sortLinesDescending",
+                "title": "Arrange Selection: Sort lines in descending order"
+            },
+            {
+                "command": "arrange-selection.sortLinesByLength",
+                "title": "Arrange Selection: Sort lines by line length"
+            },
+            {
+                "command": "arrange-selection.sortLinesByLengthDescending",
+                "title": "Arrange Selection: Sort lines by line length in descending order"
+            },
+            {
+                "command": "arrange-selection.shuffleLines",
+                "title": "Arrange Selection: Shuffle lines"
+            },
+            {
+                "command": "arrange-selection.filterDuplicateLines",
+                "title": "Arrange Selection: Filter duplicate lines"
+            },
+            {
+                "command": "arrange-selection.reverseCharacters",
+                "title": "Arrange Selection: Reverse characters"
+            },
+            {
+                "command": "arrange-selection.sortCharacters",
+                "title": "Arrange Selection: Sort characters"
+            },
+            {
+                "command": "arrange-selection.sortCharactersDescending",
+                "title": "Arrange Selection: Sort characters in descending order"
+            },
+            {
+                "command": "arrange-selection.shuffleCharacters",
+                "title": "Arrange Selection: Shuffle characters"
+            },
+            {
+                "command": "arrange-selection.filterDuplicateCharacters",
+                "title": "Arrange Selection: Filter duplicate characters"
+            }
+        ],
+        "submenus": [
+            {
+                "id": "arrangeLines",
+                "label": "Arrange Lines"
+            },
+            {
+                "id": "arrangeCharacters",
+                "label": "Arrange Characters"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "submenu": "arrangeLines",
+                    "group": "1_modification@0",
+                    "when": "editorHasSelection"
+                },
+                {
+                    "submenu": "arrangeCharacters",
+                    "group": "1_modification@1",
+                    "when": "editorHasSelection"
+                }
+            ],
+            "arrangeLines": [
+                {
+                    "command": "arrange-selection.reverseLines",
+                    "group": "1_reverse"
+                },
+                {
+                    "command": "arrange-selection.sortLines",
+                    "group": "2_sort@1"
+                },
+                {
+                    "command": "arrange-selection.sortLinesDescending",
+                    "group": "2_sort@2"
+                },
+                {
+                    "command": "arrange-selection.sortLinesByLength",
+                    "group": "2_sort@3"
+                },
+                {
+                    "command": "arrange-selection.sortLinesByLengthDescending",
+                    "group": "2_sort@4"
+                },
+                {
+                    "command": "arrange-selection.shuffleLines",
+                    "group": "3_shuffle"
+                },
+                {
+                    "command": "arrange-selection.filterDuplicateLines",
+                    "group": "4_filter"
+                }
+            ],
+            "arrangeCharacters": [
+                {
+                    "command": "arrange-selection.reverseCharacters",
+                    "group": "1_reverse"
+                },
+                {
+                    "command": "arrange-selection.sortCharacters",
+                    "group": "2_sort@1"
+                },
+                {
+                    "command": "arrange-selection.sortCharactersDescending",
+                    "group": "2_sort@2"
+                },
+                {
+                    "command": "arrange-selection.shuffleCharacters",
+                    "group": "3_shuffle"
+                },
+                {
+                    "command": "arrange-selection.filterDuplicateCharacters",
+                    "group": "4_filter"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "Arrange Selection",
+            "properties": {
+                "arrangeSelection.arrangeOnEmptySelection": {
+                    "order": 0,
+                    "type": "boolean",
+                    "default": true,
+                    "description": "When nothing is selected, arrange all lines or characters of the document"
+                },
+                "arrangeSelection.arrangeAcrossMultipleSelection": {
+                    "order": 1,
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If unchecked, each selection is arranged separately"
+                },
+                "arrangeSelection.lines.ignoreIndent": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Ignore whitespace to the left of selected lines during sort. This only applies when sorting lines"
+                },
+                "arrangeSelection.lines.useNaturalSortOrder": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "[Natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order) sorts numbers as a group. This only applies when sorting lines"
+                },
+                "arrangeSelection.characters.ignoreLineBreaks": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Ignore newline control characters when arranging characters. This effectively preserves the line length in most case except when filtering duplicate characters"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "test": "node ./test/runTest.js",
+        "prepackage": "npm run lint && npm run test",
+        "package": "vsce package"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.2.0",
+        "@types/mocha": "^9.1.0",
+        "@types/node": "14.x",
+        "@types/vscode": "^1.66.0",
+        "@vscode/test-electron": "^2.1.3",
+        "eslint": "^8.15.0",
+        "glob": "^7.2.0",
+        "mocha": "^9.2.2",
+        "typescript": "^4.6.4",
+        "vsce": "^2.7.0"
+    }
+}
