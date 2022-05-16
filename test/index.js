@@ -3,20 +3,14 @@ const Mocha = require('mocha');
 const glob = require('glob');
 const untitledDocument = require('./untitledDocument.js');
 
-function run() {
-    // Create the mocha test
-    const mocha = new Mocha({
-        ui: 'tdd',
-        color: true,
-        // bail: true,
-    });
-
+module.exports.run = function() {
+    const mocha = new Mocha({ui: 'tdd', color: true});
     const testsRoot = path.resolve(__dirname, '.');
 
-    return new Promise((c, e) => {
-        glob('**/**.test.js', { cwd: testsRoot }, (err, files) => {
+    return new Promise((resolve, reject) => {
+        glob('**/**.test.js', {cwd: testsRoot}, (err, files) => {
             if (err) {
-                return e(err);
+                return reject(err);
             }
 
             // Add files to the test suite
@@ -26,19 +20,14 @@ function run() {
                 // Run the mocha test
                 mocha.run(failures => {
                     if (failures > 0) {
-                        e(new Error(`${failures} tests failed.`));
+                        reject(new Error(`${failures} tests failed.`));
                     } else {
-                        c();
+                        resolve();
                     }
                 });
             } catch (err) {
-                console.error(err);
-                e(err);
+                reject(err);
             }
         });
     }).finally(untitledDocument.close);
 }
-
-module.exports = {
-    run
-};
