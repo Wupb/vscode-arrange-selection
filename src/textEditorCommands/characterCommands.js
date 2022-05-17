@@ -21,15 +21,12 @@ module.exports.sortCharacters = sortCharacters.bind(this, false);
 module.exports.sortCharactersDescending = sortCharacters.bind(this, true);
 function sortCharacters(reversed, textEditor, textEditorEdit) {
     // CompareFn for Array.prototype.sort()
+    let collatorComparer = new Intl.Collator(vscode.env.language).compare;
     let comparer = (a, b) => {
-        if (reversed) {
-            [a, b] = [b, a];
-        }
-
         a = textEditor.document.getText(a);
         b = textEditor.document.getText(b);
 
-        return a<b ? -1 : a>b ? 1 : 0;
+        return collatorComparer(a, b) * (reversed ? -1 : 1);
     }
 
     splitArrangements(textEditor).forEach(graphemeRanges => {
