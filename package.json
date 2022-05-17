@@ -17,7 +17,7 @@
     },
     "publisher": "Wupb",
     "license": "MIT",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "engines": {
         "vscode": "^1.66.0"
     },
@@ -197,6 +197,11 @@
                     "description": "Ignore newline control characters when arranging characters. This effectively preserves the line length in most case except when filtering duplicate characters"
                 }
             }
+        }
+    },
+    "capabilities": {
+        "untrustedWorkspaces":{
+            "supported": true
         }
     },
     "scripts": {
