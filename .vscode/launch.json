@@ -12,7 +12,8 @@
 			"args": [
 				"--disable-extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}"
-			]
+			],
+			"preLaunchTask": "npm: pretest"
 		},
 		{
 			"name": "Test Extension",
@@ -22,7 +23,8 @@
 				"--disable-extensions",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/test/index"
-			]
+			],
+			"preLaunchTask": "npm: pretest"
 		},
 		{
 			"name": "Run Web Extension",
