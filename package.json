@@ -19,14 +19,15 @@
     },
     "publisher": "Wupb",
     "license": "MIT",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "engines": {
         "vscode": "^1.66.0"
     },
     "categories": [
         "Other"
     ],
-    "main": "./src/extension.js",
+    "main": "./dist/extension.bundle.js",
+    "browser": "./dist/extension.bundle.js",
     "activationEvents": [
         "onCommand:arrange-selection.reverseLines",
         "onCommand:arrange-selection.sortLines",
@@ -202,12 +203,13 @@
         }
     },
     "capabilities": {
-        "untrustedWorkspaces":{
+        "untrustedWorkspaces": {
             "supported": true
         }
     },
     "scripts": {
-        "lint": "eslint .",
+        "lint": "eslint src/ test/",
+        "pretest": "webpack --mode production --devtool hidden-source-map",
         "test": "node ./test/runTest.js",
         "prepackage": "npm run lint && npm run test",
         "package": "vsce package"
@@ -222,6 +224,8 @@
         "glob": "^7.2.0",
         "mocha": "^9.2.2",
         "typescript": "^4.6.4",
-        "vsce": "^2.7.0"
+        "vsce": "^2.8.0",
+        "webpack": "^5.72.1",
+        "webpack-cli": "^4.9.2"
     }
 }
