@@ -5,7 +5,9 @@
     "description": "Sort, shuffle, reverse, or filter selected lines or characters",
     "keywords": [
         "Flip",
-        "Unique"
+        "Unique",
+        "Random",
+        "Randomize"
     ],
     "homepage": "https://github.com/Wupb/vscode-arrange-selection",
     "repository": {
