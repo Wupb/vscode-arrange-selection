@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.3.0
+Add `arrangeSelection.selectDuplicates` setting for selecting instead of deleting when filtering duplicate lines or characters 
+
 ## 1.2.0
 Add support for [web extension](https://code.visualstudio.com/docs/editor/vscode-web)
 

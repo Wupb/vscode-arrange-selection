@@ -6,8 +6,8 @@
     "keywords": [
         "Flip",
         "Unique",
-        "Random",
-        "Randomize"
+        "Randomize",
+        "Duplicate"
     ],
     "homepage": "https://github.com/Wupb/vscode-arrange-selection",
     "repository": {
@@ -19,7 +19,7 @@
     },
     "publisher": "Wupb",
     "license": "MIT",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "engines": {
         "vscode": "^1.66.0"
     },
@@ -183,6 +183,12 @@
                     "type": "boolean",
                     "default": true,
                     "description": "If unchecked, each selection is arranged separately"
+                },
+                "arrangeSelection.selectDuplicates": {
+                    "order": 2,
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Select instead of delete when filtering duplicate lines or characters"
                 },
                 "arrangeSelection.lines.ignoreIndent": {
                     "type": "boolean",

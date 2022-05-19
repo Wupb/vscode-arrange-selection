@@ -52,13 +52,26 @@ module.exports.shuffleCharacters = function(textEditor, textEditorEdit) {
 
 module.exports.filterDuplicateCharacters = function(textEditor, textEditorEdit) {
     splitArrangements(textEditor).forEach(graphemeRanges => {
+        // Find the duplicates
+        let duplicates = [];
         graphemeRanges
             .map(graphemeRange => textEditor.document.getText(graphemeRange)) // Map the range to the grapheme string
             .forEach((grapheme, relativeIndex, graphemeArray) => {
                 if (graphemeArray.indexOf(grapheme) !== relativeIndex) {
-                    textEditorEdit.delete(graphemeRanges[relativeIndex]);
+                    duplicates.push(graphemeRanges[relativeIndex]);
                 }
             });
+
+        // Delete or select the ranges
+        if (vscode.workspace.getConfiguration("arrangeSelection").get("selectDuplicates")) {
+            textEditor.selections = duplicates.map(range => new vscode.Selection(range.start, range.end));
+
+            // Not strictly necessary, however, when the command is run from the command palette, the editor focus is lost
+            // This avoids accidentally losing the selection (by clicking anywhere in the editor) when trying to regain focus
+            vscode.window.showTextDocument(textEditor.document);
+        } else {
+            duplicates.forEach(textEditorEdit.delete.bind(textEditorEdit));
+        }
     });
 }
 

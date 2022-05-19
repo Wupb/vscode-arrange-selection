@@ -88,24 +88,37 @@ module.exports.shuffleLines = function(textEditor, textEditorEdit) {
 
 module.exports.filterDuplicateLines = function(textEditor, textEditorEdit) {
     splitArrangements(textEditor).forEach(lineIndices => {
-        let lastUniqueLine;
+        // Find the duplicates
+        let lastUniqueLine,
+            duplicates = [];
         lineIndices
             .map(lineIndex => textEditor.document.lineAt(lineIndex).text) // Map the line index to its text
             .forEach((text, relativeIndex, textArray) => {
                 if (textArray.indexOf(text) !== relativeIndex) {
-                    textEditorEdit.delete(textEditor.document.lineAt(lineIndices[relativeIndex]).rangeIncludingLineBreak);
+                    duplicates.push(textEditor.document.lineAt(lineIndices[relativeIndex]).rangeIncludingLineBreak);
 
                     // vscode.TextLine.rangeIncludingLineBreak contains the subsequent line break, but not the previous
                     // So in the edge case that the last line is a duplicate, an empty line will remain at the end of the selection
                     // This fixes it by removing the last untouched line's trailing line break as well
                     if (relativeIndex === lineIndices.length - 1) {
                         lastUniqueLine = textEditor.document.lineAt(lastUniqueLine);
-                        textEditorEdit.delete(lastUniqueLine.rangeIncludingLineBreak.with(lastUniqueLine.range.end));
+                        duplicates.push(lastUniqueLine.rangeIncludingLineBreak.with(lastUniqueLine.range.end));
                     }
                 } else {
                     lastUniqueLine = relativeIndex;
                 }
             });
+
+        // Delete or select the ranges
+        if (vscode.workspace.getConfiguration("arrangeSelection").get("selectDuplicates")) {
+            textEditor.selections = duplicates.map(range => new vscode.Selection(range.start, range.end));
+
+            // Not strictly necessary, however, when the command is run from the command palette, the editor focus is lost
+            // This avoids accidentally losing the selection (by clicking anywhere in the editor) when trying to regain focus
+            vscode.window.showTextDocument(textEditor.document);
+        } else {
+            duplicates.forEach(textEditorEdit.delete.bind(textEditorEdit));
+        }
     });
 }
 

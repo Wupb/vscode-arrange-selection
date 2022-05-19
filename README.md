@@ -78,6 +78,7 @@ Setting | Description
 --- | ---
 `arrangeSelection.arrangeOnEmptySelection` | When nothing is selected, specifies whether to arrange the entire document 
 `arrangeSelection.arrangeAcrossMultipleSelection` | When there are multiple selections, specifies whether to arrange them independently or as a whole
+`arrangeSelection.selectDuplicates` | When filtering duplicates lines or characters, specifies whether to delete or select the duplicates
 `arrangeSelection.lines.ignoreIndent` | When sorting lines, specifies whether to ignore whitespace to the left of each line
 `arrangeSelection.lines.useNaturalSortOrder` | When sorting lines, specifies whether to use [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order)
 `arrangeSelection.characters.ignoreLineBreaks` | When arranging characters, specifies whether to skip/ignore newline control characters

@@ -57,6 +57,17 @@ suite('Configuration Test Suite', () => {
             '102354');
     });
 
+    test('selectDuplicates', async () => {
+        temporarySettings = {selectDuplicates: true};
+        await untitledDocument.assertCommand('zzz', null, 'filterDuplicateCharacters', 'zzz');
+        if (vscode.window.activeTextEditor.selections.length !== 2) {
+            throw Error("Number of selections after filtering 'zzz' with selectDuplicates=true is not 2");
+        }
+
+        temporarySettings = {selectDuplicates: false};
+        await untitledDocument.assertCommand('zzz', null, 'filterDuplicateCharacters', 'z');
+    });
+
     test('lines.ignoreIndent', async () => {
         temporarySettings = {'lines.ignoreIndent': true};
         await untitledDocument.assertCommand('  B\r\nA', null, 'sortLines', 'A\r\n  B'); // A should be ordered before B despite the preceding whitespace
