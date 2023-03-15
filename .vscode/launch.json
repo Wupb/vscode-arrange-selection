@@ -16,17 +16,6 @@
 			"preLaunchTask": "npm: pretest"
 		},
 		{
-			"name": "Test Extension",
-			"type": "extensionHost",
-			"request": "launch",
-			"args": [
-				"--disable-extensions",
-				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/test/index"
-			],
-			"preLaunchTask": "npm: pretest"
-		},
-		{
 			"name": "Run Web Extension",
 			"type": "pwa-extensionHost",
 			"debugWebWorkerHost": true,
@@ -38,6 +27,17 @@
 			],
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.js"
+			],
+			"preLaunchTask": "npm: pretest"
+		},
+		{
+			"name": "Test Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--disable-extensions",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/test/index"
 			],
 			"preLaunchTask": "npm: pretest"
 		}
